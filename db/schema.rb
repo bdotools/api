@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160521044246) do
+ActiveRecord::Schema.define(version: 20160521175555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,13 @@ ActiveRecord::Schema.define(version: 20160521044246) do
     t.index ["target_id"], name: "index_results_on_target_id", using: :btree
   end
 
+  create_table "solve_in_progress", force: :cascade do |t|
+    t.integer "target_id"
+    t.integer "target_interest"
+    t.integer "target_favor"
+    t.index ["target_id"], name: "index_solve_in_progress_on_target_id", using: :btree
+  end
+
   create_table "targets", force: :cascade do |t|
     t.string   "name"
     t.integer  "favor_min"
@@ -77,6 +84,7 @@ ActiveRecord::Schema.define(version: 20160521044246) do
 
   add_foreign_key "knowledges", "categories"
   add_foreign_key "results", "targets"
+  add_foreign_key "solve_in_progress", "targets"
   add_foreign_key "targets", "categories"
   add_foreign_key "targets", "constellations"
 end
