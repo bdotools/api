@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'active_model_serializers'
+gem 'dotenv-rails'
 gem 'rails', '>= 5.0.0.rc1', '< 5.1'
 gem 'rack-cors'
 gem 'pg', '~> 0.18'
@@ -13,7 +14,6 @@ group :development, :test do
   end
 
   gem 'byebug', platform: :mri
-  gem 'dotenv-rails'
   gem 'factory_girl_rails'
 end
 
