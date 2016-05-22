@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160521175555) do
+ActiveRecord::Schema.define(version: 20160522193955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20160521175555) do
     t.integer "target_id"
     t.integer "target_interest"
     t.integer "target_favor"
+    t.index ["target_id", "target_interest", "target_favor"], name: "index_solve_in_progress_unique", unique: true, using: :btree
     t.index ["target_id"], name: "index_solve_in_progress_on_target_id", using: :btree
   end
 
