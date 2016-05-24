@@ -1,6 +1,6 @@
 class QueryController < ApplicationController
   def show
-    result = Result.find_by!(
+    result = Result.find_by(
       target_id: params[:t],
       goal: params[:g],
       goal_param: params[:gp],
@@ -8,6 +8,10 @@ class QueryController < ApplicationController
       target_interest: params[:i]
     )
 
-    render json: result
+    if result
+      render json: result
+    else
+      render json: { status: "404" }
+    end
   end
 end
