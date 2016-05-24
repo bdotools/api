@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160522193955) do
+ActiveRecord::Schema.define(version: 20160524075538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,10 +74,11 @@ ActiveRecord::Schema.define(version: 20160522193955) do
     t.integer  "favor_max"
     t.integer  "interest_min"
     t.integer  "interest_max"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "category_id"
     t.integer  "constellation_id"
+    t.string   "workflow_state",   default: "hidden"
     t.index ["category_id"], name: "index_targets_on_category_id", using: :btree
     t.index ["constellation_id"], name: "index_targets_on_constellation_id", using: :btree
     t.index ["name"], name: "index_targets_on_name", using: :btree

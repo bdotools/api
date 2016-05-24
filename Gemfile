@@ -7,6 +7,7 @@ gem 'rails', '>= 5.0.0.rc1', '< 5.1'
 gem 'rack-cors'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
+gem 'workflow'
 
 group :development, :test do
   %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|

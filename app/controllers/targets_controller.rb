@@ -1,7 +1,5 @@
 class TargetsController < ApplicationController
   def index
-    targets = Target.eager_load(:category, :constellation, :knowledges).order(name: :asc).all
-
     render json: targets, each_serializer: MiniTargetSerializer
   end
 
@@ -9,5 +7,12 @@ class TargetsController < ApplicationController
     target = Target.find(params[:id])
 
     render json: target
+  end
+
+  private
+
+  def targets
+    Target.eager_load(:category, :constellation, :knowledges).
+      with_available_state.order(name: :asc)
   end
 end
