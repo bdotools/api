@@ -3,6 +3,7 @@ ruby '2.3.1'
 
 gem 'active_model_serializers'
 gem 'dotenv-rails'
+gem 'newrelic_rpm'
 gem 'rails', '>= 5.0.0.rc1', '< 5.1'
 gem 'rack-cors'
 gem 'pg', '~> 0.18'
