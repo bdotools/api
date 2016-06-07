@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607011828) do
+ActiveRecord::Schema.define(version: 20160607024228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,9 +55,10 @@ ActiveRecord::Schema.define(version: 20160607011828) do
     t.integer "target_interest"
     t.integer "target_favor"
     t.integer "target_id"
-    t.integer "knowledge_ids",      default: [],   array: true
+    t.integer "knowledge_ids",      default: [],    array: true
     t.integer "version"
-    t.boolean "outdated",           default: true
+    t.boolean "outdated",           default: false
+    t.boolean "experimental",       default: false
     t.index ["target_id"], name: "index_results_on_target_id", using: :btree
   end
 

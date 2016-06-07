@@ -1,3 +1,3 @@
 class ResultSerializer < ActiveModel::Serializer
-  attributes :id, :knowledge_ids, :outdated, :success_percentage
+  attributes :id, :experimental, :knowledge_ids, :outdated, :success_percentage
 end
