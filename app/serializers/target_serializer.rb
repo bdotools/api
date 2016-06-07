@@ -1,5 +1,5 @@
 class TargetSerializer < ActiveModel::Serializer
-  attributes :id, :name, :favor_min, :favor_max, :interest_min, :interest_max
+  attributes :id, :combinations, :name, :outdated
 
   belongs_to :category
   belongs_to :constellation

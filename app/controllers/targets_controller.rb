@@ -4,7 +4,7 @@ class TargetsController < ApplicationController
   end
 
   def show
-    target = Target.find(params[:id])
+    target = Target.eager_load(:category, :constellation, :knowledges, :results).find(params[:id])
 
     render json: target
   end
@@ -12,7 +12,6 @@ class TargetsController < ApplicationController
   private
 
   def targets
-    Target.eager_load(:category, :constellation, :knowledges).
-      with_available_state.order(name: :asc)
+    Target.eager_load(:results).where.not(results: { id: nil }).order(name: :asc)
   end
 end

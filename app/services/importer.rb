@@ -65,10 +65,12 @@ class Importer
       t = Target.find_or_create_by!(name: personality["name"])
       c = Constellation.find_by(name: "#{personality["zodiac"]} (#{personality["name"]})") || Constellation.find_by(name: personality["zodiac"])
 
-      t.favor_min = personality["min_interest"]
-      t.favor_max = personality["max_interest"]
-      t.interest_min = personality["min_favor"]
-      t.interest_max = personality["max_favor"]
+      t.favor_min = personality["min_favor"]
+      t.favor_max = personality["max_favor"]
+
+      t.interest_min = personality["min_interest"]
+      t.interest_max = personality["max_interest"]
+
       t.category = @category_map[personality["theme"]]
       t.constellation = c
 
