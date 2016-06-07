@@ -15,7 +15,7 @@ class Target < ApplicationRecord
   end
 
   def combinations
-    results.select("distinct on (target_interest, target_favor) *").each_with_object({}) do |result, hash|
+    results.select("distinct on (target_interest, target_favor) target_interest, target_favor, outdated").each_with_object({}) do |result, hash|
       obj = hash[result.target_interest] ||= {}
       obj[:outdated] = true if result.outdated
       obj[:data] ||= []

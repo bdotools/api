@@ -4,7 +4,7 @@ class TargetsController < ApplicationController
   end
 
   def show
-    target = Target.eager_load(:category, :constellation, :knowledges, :results).find(params[:id])
+    target = Target.eager_load(:category, :constellation, :knowledges).find(params[:id])
 
     render json: target
   end
