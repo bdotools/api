@@ -8,6 +8,8 @@ class QueryController < ApplicationController
       target_interest: params[:i]
     )
 
+    result.current_ip = request.remote_ip
+
     if result
       render json: result
     else
