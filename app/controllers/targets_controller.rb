@@ -12,6 +12,6 @@ class TargetsController < ApplicationController
   private
 
   def targets
-    Target.eager_load(:results).where.not(results: { id: nil }).order(name: :asc)
+    Target.joins(:results).where.not(results: { id: nil }).uniq
   end
 end
