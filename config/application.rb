@@ -9,6 +9,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
+require_relative "../lib/cloudflare.rb"
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
@@ -33,5 +34,7 @@ module BdoApi
         resource "*", :headers => :any, :methods => [:get, :post, :options]
       end
     end
+
+    config.middleware.use Rack::CloudFlareMiddleware
   end
 end
