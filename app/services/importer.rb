@@ -68,7 +68,9 @@ class Importer
 
     if old.any?
       Knowledge.where(id: old).delete_all
-      Result.where("ARRAY#{old} && knowledge_ids").delete_all
+      result = Result.where("ARRAY#{old} && knowledge_ids")
+      Vote.where(result_id: result.pluck(:id)).delete_all
+      result.delete_all
     end
   end
 
