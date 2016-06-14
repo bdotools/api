@@ -58,6 +58,18 @@ class Importer
 
       @knowledge_map[card["id"]] = k
     end
+
+    process_old
+  end
+
+  def process_old
+    ids = @knowledge_map.map { |_, v| v["id"] }
+    old = Array(Knowledge.where.not(id: ids).pluck(:id))
+
+    if old.any?
+      Knowledge.where(id: old).delete_all
+      Result.where("ARRAY#{old} && knowledge_ids").delete_all
+    end
   end
 
   def process_targets
