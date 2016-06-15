@@ -32,7 +32,8 @@ class Importer
 
   def process_categories
     data["themes"].each do |theme|
-      c = Category.find_or_create_by!(name: theme["name"])
+      c = Category.find_or_create_by!(daum_id: theme["id"])
+      c.name = theme["name"]
 
       theme["cards"].each do |card_id|
         c.knowledges << @knowledge_map[card_id]
@@ -46,8 +47,9 @@ class Importer
 
   def process_knowledge
     data["card"].each do |card|
-      k = Knowledge.find_or_create_by!(name: card["name"])
+      k = Knowledge.find_or_create_by!(daum_id: card["id"])
 
+      k.name = card["name"]
       k.favor_min = card["min_favor"]
       k.favor_max = card["max_favor"]
       k.interest = card["interest"]
@@ -76,8 +78,10 @@ class Importer
 
   def process_targets
     data["personality"].each do |personality|
-      t = Target.find_or_create_by!(name: personality["name"])
+      t = Target.find_or_create_by!(daum_id: personality["id"])
       c = Constellation.find_by(name: "#{personality["zodiac"]} (#{personality["name"]})") || Constellation.find_by(name: personality["zodiac"])
+
+      t.name = personality["name"]
 
       t.favor_min = personality["min_favor"]
       t.favor_max = personality["max_favor"]
@@ -88,7 +92,11 @@ class Importer
       t.category = @category_map[personality["theme"]]
       t.constellation = c
 
+      should_update = t.changed?
+
       t.save!
+
+      t.queue_for_update if should_update
     end
   end
 end

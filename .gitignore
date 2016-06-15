@@ -24,3 +24,5 @@
 
 .env
 .env.production
+
+bin/solver

@@ -36,5 +36,7 @@ module BdoApi
     end
 
     config.middleware.use Rack::CloudFlareMiddleware
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end
