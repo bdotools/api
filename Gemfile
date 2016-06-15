@@ -26,6 +26,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-rvm'
+  gem 'capistrano-sidekiq'
   gem 'capistrano3-puma', github: "seuros/capistrano-puma"
   gem 'listen', '~> 3.0.5'
   gem 'spring'
