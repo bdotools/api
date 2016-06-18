@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615063908) do
+ActiveRecord::Schema.define(version: 20160618054226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,5 +106,5 @@ ActiveRecord::Schema.define(version: 20160615063908) do
   add_foreign_key "solve_in_progress", "targets"
   add_foreign_key "targets", "categories"
   add_foreign_key "targets", "constellations"
-  add_foreign_key "votes", "results"
+  add_foreign_key "votes", "results", on_delete: :cascade
 end
