@@ -23,10 +23,6 @@ class Target < ApplicationRecord
     end
   end
 
-  def outdated
-    results.where(outdated: true).any?
-  end
-
   def queue_for_update
     [*interest_min..interest_max].product([*favor_min..favor_max]).each do |combination|
       SolverJob.perform_later(id, combination.first, combination.last)

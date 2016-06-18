@@ -1,5 +1,5 @@
 class TargetSerializer < ActiveModel::Serializer
-  attributes :id, :combinations, :name, :outdated
+  attributes :id, :combinations, :name
 
   belongs_to :category
   belongs_to :constellation
