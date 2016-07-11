@@ -2,23 +2,22 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'active_model_serializers'
+gem 'csv-importer'
 gem 'dotenv-rails'
 gem 'newrelic_rpm'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
+gem 'seven_zip_ruby'
 gem 'sidekiq'
 gem 'rails', '>= 5.0.0.rc1', '< 5.1'
 gem 'rack-cors'
 gem 'workflow'
 
 group :development, :test do
-  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-    gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
-  end
-
   gem 'byebug', platform: :mri
   gem 'factory_girl_rails'
   gem 'pry-rails'
+  gem 'rspec-rails', '~> 3.4'
 end
 
 group :development do
