@@ -1,5 +1,5 @@
 class Knowledge < ApplicationRecord
-  belongs_to :category, optional: true
+  belongs_to :category, primary_key: :daum_id, optional: true
 
   def average_favor
     @average_favor ||= (favor_min + favor_max) / 2

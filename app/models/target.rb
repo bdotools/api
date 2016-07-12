@@ -1,13 +1,16 @@
 class Target < ApplicationRecord
   include Workflow
 
-  belongs_to :category, optional: true
-  belongs_to :constellation, optional: true
+  belongs_to :category, primary_key: :daum_id, optional: true
+  belongs_to :constellation_order, primary_key: :daum_id, foreign_key: :constellation_id, optional: true
+
+  has_one :constellation, through: :constellation_order
 
   has_many :knowledges, through: :category
   has_many :results
 
-  delegate :slots, :slot_order, to: :constellation, prefix: true
+  delegate :name, to: :constellation, prefix: true
+  delegate :slots, :slot_order, to: :constellation_order, prefix: :constellation
 
   workflow do
     state :hidden

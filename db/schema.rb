@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711222703) do
+ActiveRecord::Schema.define(version: 20160712014837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,12 +25,22 @@ ActiveRecord::Schema.define(version: 20160711222703) do
     t.index ["name"], name: "index_categories_on_name", using: :btree
   end
 
+  create_table "constellation_orders", force: :cascade do |t|
+    t.integer "constellation_id"
+    t.integer "daum_id"
+    t.integer "slot_order",       default: [], array: true
+    t.index ["constellation_id"], name: "index_constellation_orders_on_constellation_id", using: :btree
+    t.index ["daum_id"], name: "index_constellation_orders_on_daum_id", unique: true, using: :btree
+  end
+
   create_table "constellations", force: :cascade do |t|
     t.string   "name"
     t.integer  "slots"
     t.integer  "slot_order", default: [],              array: true
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "daum_id"
+    t.index ["daum_id"], name: "index_constellations_on_daum_id", unique: true, using: :btree
   end
 
   create_table "knowledges", force: :cascade do |t|
@@ -101,7 +111,6 @@ ActiveRecord::Schema.define(version: 20160711222703) do
     t.index ["result_id"], name: "index_votes_on_result_id", using: :btree
   end
 
-  add_foreign_key "knowledges", "categories"
   add_foreign_key "results", "targets"
   add_foreign_key "solve_in_progress", "targets"
   add_foreign_key "votes", "results", on_delete: :cascade
