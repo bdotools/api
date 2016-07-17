@@ -16,6 +16,9 @@ module Importer
 
       Globalize.with_locale(:en) do
         ImportCharacterTranslation.new(path: "#{@path}/languagedata_en_Character.csv").run!
+        ImportCardTranslation.new(path: "#{@path}/languagedata_en_Card.csv").run!
+        ImportThemeTranslation.new(path: "#{@path}/languagedata_en_Theme.csv").run!
+        ImportZodiacTranslation.new(path: "#{@path}/languagedata_en_ZodiacSign.csv").run!
       end
     end
   end

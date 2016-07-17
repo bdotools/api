@@ -31,7 +31,14 @@ class BestCombo
       sum += k.interest / interest
     end
 
-    [total / target.constellation_slots, 1].min
+    chance = [total / target.constellation_slots, 1].min
+
+    if order == :asc
+      #1 - chance
+      nil
+    else
+      chance
+    end
   end
 
   def to_json(*)

@@ -24,12 +24,32 @@ ActiveRecord::Schema.define(version: 20160712030924) do
     t.index ["name"], name: "index_categories_on_name", using: :btree
   end
 
+  create_table "category_translations", force: :cascade do |t|
+    t.integer  "category_id", null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "name"
+    t.index ["category_id"], name: "index_category_translations_on_category_id", using: :btree
+    t.index ["locale"], name: "index_category_translations_on_locale", using: :btree
+  end
+
   create_table "constellation_orders", force: :cascade do |t|
     t.integer "constellation_id"
     t.integer "daum_id"
     t.integer "slot_order",       default: [], array: true
     t.index ["constellation_id"], name: "index_constellation_orders_on_constellation_id", using: :btree
     t.index ["daum_id"], name: "index_constellation_orders_on_daum_id", unique: true, using: :btree
+  end
+
+  create_table "constellation_translations", force: :cascade do |t|
+    t.integer  "constellation_id", null: false
+    t.string   "locale",           null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "name"
+    t.index ["constellation_id"], name: "index_constellation_translations_on_constellation_id", using: :btree
+    t.index ["locale"], name: "index_constellation_translations_on_locale", using: :btree
   end
 
   create_table "constellations", force: :cascade do |t|
@@ -40,6 +60,16 @@ ActiveRecord::Schema.define(version: 20160712030924) do
     t.datetime "updated_at",              null: false
     t.integer  "daum_id"
     t.index ["daum_id"], name: "index_constellations_on_daum_id", unique: true, using: :btree
+  end
+
+  create_table "knowledge_translations", force: :cascade do |t|
+    t.integer  "knowledge_id", null: false
+    t.string   "locale",       null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "name"
+    t.index ["knowledge_id"], name: "index_knowledge_translations_on_knowledge_id", using: :btree
+    t.index ["locale"], name: "index_knowledge_translations_on_locale", using: :btree
   end
 
   create_table "knowledges", force: :cascade do |t|
