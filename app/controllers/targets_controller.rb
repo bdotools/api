@@ -1,6 +1,8 @@
 class TargetsController < ApplicationController
   def index
-    render json: Target.with_available_state.order(name: :asc), each_serializer: MiniTargetSerializer
+    targets = Target.with_available_state.reject { |x| x.name.nil? }.sort_by(&:name)
+
+    render json: targets, each_serializer: MiniTargetSerializer
   end
 
   def show

@@ -39,7 +39,9 @@ describe Importer::ImportRunner do
         target = Target.first 
         expect(Target.count).to eq 1
         expect(target.daum_id).to eq 1001
-        expect(target.name).to eq "금속 가공 도구"
+        Globalize.with_locale(:ko) do
+          expect(target.name).to eq "금속 가공 도구"
+        end
       end
     end
 
