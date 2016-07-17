@@ -3,3 +3,6 @@ ActiveRecord::Base.connection.tables.reject { |x| x == "schema_migrations" }.eac
 end
 
 Importer::Import.new(path: "db/latest.7z").call
+
+# Make Amity targets available.
+Target.joins(:category).where.not(categories: { id: nil }).update_all(workflow_state: :available)
