@@ -12,6 +12,8 @@ class Target < ApplicationRecord
   delegate :name, to: :constellation, prefix: true
   delegate :slots, :slot_order, to: :constellation_order, prefix: :constellation
 
+  translates :name
+
   workflow do
     state :hidden
     state :available

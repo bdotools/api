@@ -78,6 +78,19 @@ describe Importer::ImportRunner do
       end
     end
 
+    context "translations" do
+      it "imports character translations" do
+        reset_mock!(Importer::ImportCharacterTranslation)
+
+        allow(File).to receive(:open) { double(read: data[:character_translations]) }
+
+        runner.import!
+
+        target = Target.first
+        expect(target.name).to eq "Metal Processing Tool"
+      end
+    end
+
     context "zodiac" do
       it "imports zodiac" do
         reset_mock!(Importer::ImportZodiac)
@@ -114,6 +127,10 @@ describe Importer::ImportRunner do
         csv << %w(Key Name KnowledgeType KnowledgeLevel Picture MainTheme isGeneral MinDd MaxDd Hit BuffType VariedValue ApplyTurn ValidTurn Keyword position ContentsGroupKey)
         csv << [1, "아이슬린 바탈리", 0, 0, "UI_Artwork/IC_00001.dds", 101, 1, 32, 38, 20, nil, 4, 1, 4, "달무리 여관 여주인", nil, 0]
       end,
+      character_translations: CSV.generate do |csv|
+        csv << ["^Index", "~DisplayName", "", "note"]
+        csv << [1001, "Metal Processing Tool", "", ""]
+      end,
       characters: CSV.generate do |csv|
         csv << %w(Index DisplayName)
         csv << [1001, "금속 가공 도구"]
@@ -144,6 +161,8 @@ describe Importer::ImportRunner do
     allow(Importer::ImportTheme).to receive(:new) { double(run!: nil) }
     allow(Importer::ImportZodiac).to receive(:new) { double(run!: nil) }
     allow(Importer::ImportZodiacIndex).to receive(:new) { double(run!: nil) }
+
+    allow(Importer::ImportCharacterTranslation).to receive(:new) { double(run!: nil) }
   end
 
   def reset_mock!(obj)
