@@ -14,11 +14,13 @@ module Importer
         ImportZodiacIndex.new(path: "#{@path}/datasheets_ZodiacSignIndex.csv").run!
       end
 
-      Globalize.with_locale(:en) do
-        ImportCharacterTranslation.new(path: "#{@path}/languagedata_en_Character.csv").run!
-        ImportCardTranslation.new(path: "#{@path}/languagedata_en_Card.csv").run!
-        ImportThemeTranslation.new(path: "#{@path}/languagedata_en_Theme.csv").run!
-        ImportZodiacTranslation.new(path: "#{@path}/languagedata_en_ZodiacSign.csv").run!
+      %i(en de fr).each do |locale|
+        Globalize.with_locale(locale) do
+          ImportCharacterTranslation.new(path: "#{@path}/languagedata_#{locale}_Character.csv").run!
+          ImportCardTranslation.new(path: "#{@path}/languagedata_#{locale}_Card.csv").run!
+          ImportThemeTranslation.new(path: "#{@path}/languagedata_#{locale}_Theme.csv").run!
+          ImportZodiacTranslation.new(path: "#{@path}/languagedata_#{locale}_ZodiacSign.csv").run!
+        end
       end
     end
   end
