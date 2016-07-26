@@ -1,7 +1,8 @@
 class BestCombo
-  attr_reader :interest, :order, :result, :target
+  attr_reader :favor, :interest, :order, :result, :target
 
-  def initialize(id:, interest:, order: :desc)
+  def initialize(id:, interest:, favor:, order: :desc)
+    @favor = favor.to_i
     @interest = interest.to_f
     @order = order
     @target = Target.eager_load(:knowledges).find(id)
@@ -12,7 +13,15 @@ class BestCombo
   end
 
   def result
-    @result ||= target.knowledges.sort do |a, b|
+    knowledges = target.knowledges
+    if !is_asc?
+      knowledges = knowledges.select { |x| x.calculated_interest(favor) > 0 }
+      if knowledges.count < target.constellation_slots
+        knowledges = target.knowledges
+      end
+    end
+
+    @result ||= target.knowledges.select { |x| x.calculated_interest(favor) > 0 }.sort do |a, b|
       first, second = [-a.interest, -b.interest]
       if is_asc?
         first = -first
@@ -20,7 +29,7 @@ class BestCombo
       end
 
       comp = (first <=> second)
-      comp.zero? ? (-a.average_favor <=> -b.average_favor) : comp
+      comp.zero? ? (-a.calculated_interest(favor) <=> -b.calculated_interest(favor)) : comp
     end
 
     @result.first(target.constellation_slots)

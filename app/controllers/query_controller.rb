@@ -4,7 +4,7 @@ class QueryController < ApplicationController
   def show
     order = fail_params.include?(params[:g].to_i) ? :asc : :desc
 
-    result = BestCombo.new(id: params[:t], order: order, interest: params[:i])
+    result = BestCombo.new(id: params[:t], order: order, interest: params[:i], favor: params[:f])
     render json: result
   end
 
