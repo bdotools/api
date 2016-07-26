@@ -21,7 +21,7 @@ class BestCombo
       end
     end
 
-    @result ||= target.knowledges.select { |x| x.calculated_interest(favor) > 0 }.sort do |a, b|
+    @result ||= knowledges.sort do |a, b|
       first, second = [-a.interest, -b.interest]
       if is_asc?
         first = -first
